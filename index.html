@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102c25">
+  <title>AyahLoop — Read. Remember. Reflect.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="AyahLoop home"><span class="brand-mark">۞</span><span>AyahLoop<small>QURAN COMPANION</small></span></a>
+      <div class="nav-label">YOUR SPACE</div>
+      <button class="nav-item active" data-view="read"><span>◈</span> Read & Listen</button>
+      <button class="nav-item" data-view="memorize"><span>✧</span> Memorization Lab</button>
+      <button class="nav-item" data-view="reflect"><span>☼</span> Daily Reflection</button>
+      <div class="sidebar-bottom">
+        <div class="verse-mini">“And We have certainly made the Qur’an easy for remembrance...”<small>Al-Qamar 54:17</small></div>
+        <div class="api-status"><span class="status-dot"></span><span id="apiStatus">Connecting to Quran API…</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow" id="todayLabel">YOUR QURAN JOURNEY</div><h1 id="pageTitle">A little every day.</h1></div>
+        <div class="top-actions">
+          <label class="search-box"><span>⌕</span><input id="surahSearch" type="search" placeholder="Find a surah…" aria-label="Search surah"></label>
+          <button id="fontToggle" class="icon-btn" title="Toggle larger Arabic text" aria-label="Toggle larger Arabic text">Aa</button>
+        </div>
+      </header>
+
+      <section id="readView" class="view">
+        <div class="hero">
+          <div class="hero-copy"><span class="pill">TODAY'S PRACTICE</span><h2>Read with presence.<br><em>Remember with purpose.</em></h2><p>Read an ayah, listen closely, then try recalling it from memory. Small, steady steps.</p><button id="startPractice" class="primary-btn">Start a 5-minute session <span>→</span></button></div>
+          <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="crescent">☾</div><div class="star star-a">✦</div><div class="star star-b">✧</div><div class="art-caption">اقرأ · تدبّر · احفظ</div></div>
+        </div>
+        <div class="section-heading"><div><div class="eyebrow">CONTINUE YOUR JOURNEY</div><h2>Choose a surah</h2></div><span id="surahCount" class="muted">Loading chapters…</span></div>
+        <div id="surahGrid" class="surah-grid"><div class="loading-card">Loading Quran chapters…</div></div>
+      </section>
+
+      <section id="memorizeView" class="view hidden">
+        <div class="practice-intro"><span class="pill">ACTIVE RECALL</span><h2>Memorization Lab</h2><p>Hide the ayah, recall it aloud or in your mind, then reveal it to check yourself. Be patient with your progress.</p></div>
+        <div class="practice-card">
+          <div class="practice-toolbar"><label for="practiceSurah">Surah</label><select id="practiceSurah"><option value="1">Al-Fatihah</option></select><button id="loadPractice" class="soft-btn">Load ayah</button></div>
+          <div class="ayah-meta" id="practiceMeta">Al-Fatihah · Ayah 1</div>
+          <div id="practiceArabic" class="practice-arabic arabic" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+          <div id="practiceTranslation" class="translation">In the name of Allah, the Most Compassionate, the Most Merciful.</div>
+          <div class="practice-controls"><button id="hideAyah" class="primary-btn">Hide & recall <span>◌</span></button><button id="revealAyah" class="soft-btn">Reveal answer</button><button id="playAyah" class="soft-btn">▶ Listen</button></div>
+          <div id="recallFeedback" class="feedback" aria-live="polite">Read carefully once, then test your recall.</div>
+          <div class="self-rating hidden" id="selfRating"><span>How did it go?</span><button data-rating="again">Need another try</button><button data-rating="good">Remembered it</button><button data-rating="easy">Easy</button></div>
+        </div>
+        <div class="tip-card"><span>✦</span><div><strong>A gentle method</strong><p>Listen once, read three times, hide the text, recall, then check. Return to difficult ayat more often—without judging yourself.</p></div></div>
+      </section>
+
+      <section id="reflectView" class="view hidden">
+        <div class="practice-intro"><span class="pill">PAUSE & REFLECT</span><h2>Make room for meaning.</h2><p>Choose an ayah to sit with. Read its translation, listen, and write one personal reflection.</p></div>
+        <div class="reflection-card"><div class="eyebrow">A MOMENT OF REFLECTION</div><div class="arabic reflection-arabic" dir="rtl" id="reflectionArabic">فَإِنَّ مَعَ الْعُسْرِ يُسْرًا</div><div id="reflectionTranslation" class="translation">For indeed, with hardship comes ease.</div><div id="reflectionReference" class="muted">Ash-Sharh 94:5</div><textarea id="reflectionNote" rows="4" placeholder="What stands out to you today? (Your note stays in this browser.)"></textarea><div class="reflection-actions"><button id="saveReflection" class="primary-btn">Save reflection</button><button id="newReflection" class="soft-btn">Another ayah ↻</button></div><div id="reflectionStatus" class="muted" aria-live="polite"></div></div>
+      </section>
+
+      <section id="chapterView" class="view hidden">
+        <button id="backToRead" class="back-btn">← All surahs</button>
+        <div class="chapter-heading"><div><div class="eyebrow" id="chapterType">QURAN</div><h2 id="chapterName">Surah</h2><p id="chapterInfo" class="muted"></p></div><div id="chapterArabicName" class="chapter-arabic arabic" dir="rtl"></div></div>
+        <div class="chapter-tools"><label class="select-wrap">Translation <select id="translationSelect"><option value="en.sahih">English — Sahih International</option></select></label><button id="playChapter" class="soft-btn">▶ Play first ayah</button></div>
+        <div id="ayahList" class="ayah-list"><div class="loading-card">Loading verses…</div></div>
+      </section>
+      <footer><span>AyahLoop</span><span>Built for mindful reading, not rushed completion.</span><span>Quran text and audio provided by Quran.com API.</span></footer>
+    </main>
+  </div>
+  <audio id="audioPlayer" preload="none"></audio>
+  <script src="app.js"></script>
+</body>
+</html>
